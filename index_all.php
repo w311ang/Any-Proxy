@@ -184,6 +184,8 @@ $charlen = stripos($sResponse, "charset");
 if (stristr(substr($sResponse, $charlen, 18) , "GBK") || stristr(substr($sResponse, $charlen, 18) , "GB2312")) {
     $sResponse = mb_convert_encoding($sResponse, "UTF-8", "GBK,GB2312,BIG5");
 }
+// 插入不启用referrer meta标签
+$sResponse = substr_replace($sResponse, '<meta name="referrer" content="never">', strpos($sResponse, '<meta'), 0);
 header("Pragma: no-cache");
 // close cURL resource, and free up system resources
 $pregRule = "/=[\'|\"](?!\/\/)(?:\/)(.*?)[\'|\"]/s";
